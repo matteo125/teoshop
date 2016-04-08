@@ -1,0 +1,51 @@
+== README
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
+
+
+Please feel free to use a different markup language if you do not plan to run
+<tt>rake doc:app</tt>.
+
+Info utili per me cazzo:
+
+start Postgresql: pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+vedere se va: ps auxw | grep post
+
+=======================
+GUIDA DI UN TIZIO:
+I've just resolved the same problem. It's just because I forgot to run it properly before use.
+
+For pure installing postgresql on Mac OS, the process will be (using brew command):
+
+brew install postgresql
+then if you want to automatically run postgresql at login:
+
+ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
+or else you just want to run it anytime you want:
+
+postgres -D /usr/local/var/postgres
+If your case is more complicated, let's brew uninstall postgresql and redo these steps.
+
+Hope it helps!
+=======================
