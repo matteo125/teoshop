@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408091037) do
+ActiveRecord::Schema.define(version: 20161011103715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,28 @@ ActiveRecord::Schema.define(version: 20160408091037) do
   add_index "spree_cartons", ["imported_from_shipment_id"], name: "index_spree_cartons_on_imported_from_shipment_id", unique: true, using: :btree
   add_index "spree_cartons", ["number"], name: "index_spree_cartons_on_number", unique: true, using: :btree
   add_index "spree_cartons", ["stock_location_id"], name: "index_spree_cartons_on_stock_location_id", using: :btree
+
+  create_table "spree_comment_types", force: :cascade do |t|
+    t.string   "name"
+    t.string   "applies_to"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "spree_comments", force: :cascade do |t|
+    t.string   "title",            limit: 50
+    t.text     "comment"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "comment_type_id"
+  end
+
+  add_index "spree_comments", ["commentable_id"], name: "index_spree_comments_on_commentable_id", using: :btree
+  add_index "spree_comments", ["commentable_type"], name: "index_spree_comments_on_commentable_type", using: :btree
+  add_index "spree_comments", ["user_id"], name: "index_spree_comments_on_user_id", using: :btree
 
   create_table "spree_countries", force: :cascade do |t|
     t.string   "iso_name"
