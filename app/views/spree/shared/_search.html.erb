@@ -1,0 +1,32 @@
+<% @taxons = @taxon && @taxon.parent ? @taxon.parent.children : Spree::Taxon.roots %>
+<%= form_tag spree.products_path, :method => :get do %>
+  <% cache(cache_key_for_taxons) do %>
+<div class="btn-group">
+    <%= select_tag :taxon,
+          options_for_select([[Spree.t(:all_departments), '']] +
+                                @taxons.map {|t| [t.name, t.id]},
+                                @taxon ? @taxon.id : params[:taxon]),
+                                class: 'btn btn-default dropdown-toggle',
+                                id: 'dropdownMenu1',
+                                'data-toggle' => 'dropdown',
+                                'aria-haspopup' => 'true',
+                                'aria-expanded' => 'true',
+                                'aria-label' => 'Taxon' %>
+  <% end %>
+</div>
+
+  <%= search_field_tag :keywords, params[:keywords], :placeholder => Spree.t(:search),
+                                class: 'form-control'
+                                 %>
+  <%= submit_tag Spree.t(:search), :name => nil, class: 'btn btn-default dropdown-toggle' %>
+<% end %>
+
+
+<!-- Single button
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" 'data-toggle' => 'dropdown' 'aria-haspopup' => 'true' aria-expanded="false">
+    Action <span class="caret"></span>
+  </button>
+
+  link_to '#', data: { toggle: "dropdown" }, "aria-haspopup" => true do %>
+  -->
