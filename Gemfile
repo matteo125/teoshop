@@ -26,6 +26,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'solidus'
 gem 'solidus_auth_devise'
 gem 'solidus_related_products'
+gem 'solidus_product_assembly', github: 'solidusio-contrib/solidus_product_assembly', branch: 'master'
+gem 'solidus_print_invoice' , github: 'solidusio-contrib/solidus_print_invoice'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

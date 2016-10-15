@@ -51,6 +51,15 @@ Spree.config do |config|
   # )
 end
 
+Spree::PrintInvoice::Config.set(print_invoice_logo_path: "logo/solidus_logo.png")
+
+# Deface::Override.new(
+#   virtual_path:  'app/views/spree/admin/general_settings/edit',    
+#   name:          'invoice', # Or a fancy unique name
+#   insert_bottom: "",
+#   partial:       'app/views/spree/admin/general_settings/invoice'
+# )
+
 Spree::Frontend::Config.configure do |config|
   config.use_static_preferences!
 
