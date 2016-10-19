@@ -1,0 +1,25 @@
+<%# no need for thumbnails unless there is more than one image %>
+<% if (@product.images + @product.variant_images).uniq.size > 1 %>
+  <div id="product-thumbnails" data-hook>
+    <% @product.images.each do |i| %>
+      <div class='col-xs-6 col-md-3 tmb-all tmb-<%= i.viewable.id %>'>
+        <%= link_to(image_tag(i.attachment.url(:mini)), i.attachment.url(:product), class: 'thumbnail') %>
+      </div>
+    <% end %>
+
+    <% if @product.has_variants? %>
+      <% @product.variant_images.each do |i| %>
+        <% next if @product.images.include?(i) %>
+        <div class='col-xs-6 col-md-3 vtmb tmb-<%= i.viewable.id %>'>
+          <%= link_to(image_tag(i.attachment.url(:mini)), i.attachment.url(:product), class: 'thumbnail') %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+
+<!--
+<a href="#" class="thumbnail">
+  <img src="..." alt="...">
+</a>
+-->
