@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161011103715) do
+ActiveRecord::Schema.define(version: 20161015144114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,12 @@ ActiveRecord::Schema.define(version: 20161011103715) do
   add_index "spree_adjustments", ["order_id"], name: "index_spree_adjustments_on_order_id", using: :btree
   add_index "spree_adjustments", ["promotion_code_id"], name: "index_spree_adjustments_on_promotion_code_id", using: :btree
   add_index "spree_adjustments", ["source_id", "source_type"], name: "index_spree_adjustments_on_source_id_and_source_type", using: :btree
+
+  create_table "spree_assemblies_parts", force: :cascade do |t|
+    t.integer "assembly_id",             null: false
+    t.integer "part_id",                 null: false
+    t.integer "count",       default: 1, null: false
+  end
 
   create_table "spree_assets", force: :cascade do |t|
     t.integer  "viewable_id"
@@ -341,6 +347,8 @@ ActiveRecord::Schema.define(version: 20161011103715) do
     t.integer  "store_id"
     t.string   "approver_name"
     t.boolean  "frontend_viewable",                                          default: true,    null: false
+    t.integer  "invoice_number"
+    t.date     "invoice_date"
   end
 
   add_index "spree_orders", ["approver_id"], name: "index_spree_orders_on_approver_id", using: :btree
@@ -464,7 +472,7 @@ ActiveRecord::Schema.define(version: 20161011103715) do
   add_index "spree_product_properties", ["property_id"], name: "index_spree_product_properties_on_property_id", using: :btree
 
   create_table "spree_products", force: :cascade do |t|
-    t.string   "name",                 default: "",   null: false
+    t.string   "name",                 default: "",    null: false
     t.text     "description"
     t.datetime "available_on"
     t.datetime "deleted_at"
@@ -477,6 +485,8 @@ ActiveRecord::Schema.define(version: 20161011103715) do
     t.datetime "updated_at"
     t.boolean  "promotionable",        default: true
     t.string   "meta_title"
+    t.boolean  "can_be_part",          default: false, null: false
+    t.boolean  "individual_sale",      default: true,  null: false
   end
 
   add_index "spree_products", ["available_on"], name: "index_spree_products_on_available_on", using: :btree
@@ -674,6 +684,26 @@ ActiveRecord::Schema.define(version: 20161011103715) do
 
   add_index "spree_reimbursements", ["customer_return_id"], name: "index_spree_reimbursements_on_customer_return_id", using: :btree
   add_index "spree_reimbursements", ["order_id"], name: "index_spree_reimbursements_on_order_id", using: :btree
+
+  create_table "spree_relation_types", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "applies_to"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "spree_relations", force: :cascade do |t|
+    t.integer  "relation_type_id"
+    t.integer  "relatable_id"
+    t.string   "relatable_type"
+    t.integer  "related_to_id"
+    t.string   "related_to_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.decimal  "discount_amount",  precision: 8, scale: 2, default: 0.0
+    t.integer  "position"
+  end
 
   create_table "spree_return_authorizations", force: :cascade do |t|
     t.string   "number"

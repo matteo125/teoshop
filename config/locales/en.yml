@@ -20,4 +20,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  spree:
+    customer_invoice: Customer Invoice
+    footer_left: PROVA PROVA
+    footer_left2: TESTA DI CANE
+    invoice_print: Print Invoice
+    thanks: thanks
