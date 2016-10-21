@@ -1,5 +1,13 @@
 module Spree::BaseHelper
 
+  def layout_partial
+    if controller.devise_controller?
+      'spree/base/devise'
+    else
+      'spree/base/application'
+    end
+  end
+
   def logo(image_path = ("logo.png"), img_option: {})
     link_to image_tag(image_path, img_option), spree.root_path
   end
